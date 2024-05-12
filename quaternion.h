@@ -1,5 +1,8 @@
 #include <iostream>
+#include <string>
 #include <cmath>
+
+#define PRINTER(name) Quaternion::print(#name, (name))
 
 class Quaternion
 {
@@ -15,7 +18,7 @@ public:
     
     ~Quaternion() {}  // destructor
 
-    static const void print(const Quaternion& q);
+    static const void print(const std::string& name, const Quaternion& q);
 
     void setComponents(const float& a, const float& b, const float& c, const float& d)
     {
@@ -61,6 +64,11 @@ public:
 
         return Quaternion(a, b, c, d);
     }
+
+    Quaternion operator/(const float& divisor) const
+    {
+        return Quaternion(m_a / divisor, m_b / divisor, m_c / divisor, m_d / divisor);
+    }
 };
 
 class Vector3 : public Quaternion
@@ -83,9 +91,9 @@ public:
     }
 };
 
-const void Quaternion::print(const Quaternion& q)
+const void Quaternion::print(const std::string& name, const Quaternion& q)
 {
-    std::cout << "q = " << q.m_a;
+    std::cout << name << " = " << q.m_a;
     if (q.m_b < 0)
         std::cout << " - " << std::abs(q.m_b) << 'i';
     else
@@ -103,16 +111,15 @@ const void Quaternion::print(const Quaternion& q)
 Quaternion inverse(Quaternion& q)
 {
     const float mag = q.getMag();
-    return Quaternion(q.m_a / mag / mag, -q.m_b / mag / mag,
-        -q.m_c / mag / mag, -q.m_d / mag / mag);
+    return q.conjugate() / (mag * mag);
 }
 
-Vector3 rotate(float theta, Vector3& v)
-{
-    Quaternion q(std::cos(theta * M_PI / 180 / 2), std::sin(theta * M_PI / 180 / 2), std::sin(theta * M_PI / 180 / 2), std::sin(theta * M_PI / 180 / 2));
-    Quaternion q_norm = q.normalize();
-    Quaternion q_conj = q_norm.conjugate();
-    
-    Vector3 v_rotated = q_norm * v * q_conj;
-    return v_rotated;
-}
+//Vector3 rotate(const float& theta, const Vector3& v)
+//{
+//    Quaternion q(std::cos(theta * M_PI / 180 / 2), std::sin(theta * M_PI / 180 / 2), std::sin(theta * M_PI / 180 / 2), std::sin(theta * M_PI / 180 / 2));
+//    Quaternion q_norm = q.normalize();
+//    Quaternion q_conj = q_norm.conjugate();
+//    
+//    Vector3 v_rotated = q_norm * v * q_conj;
+//    return v_rotated;
+//}
