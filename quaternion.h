@@ -3,7 +3,6 @@
 #include <tuple>
 #include <cmath>
 
-//#define PRINTER(name) Quaternion::print(#name, (name))
 #define PRINTER(name) name.print(#name)
 
 class Vector3
@@ -99,8 +98,6 @@ public:
     }
     
     ~Quaternion() {}  // destructor
-
-//    static void print(const std::string& name, const Quaternion& q);
 
     void setComponents(const float& a, const float& b, const float& c, const float& d)
     {
@@ -212,7 +209,6 @@ public:
               std::cout << " + " << m_c << 'j';
           else
               std::cout << m_c << 'j';
-
         }
     
         if (std::abs(m_d) >= eps)
@@ -227,48 +223,6 @@ public:
         std::cout << '\n';
     }
 };
-
-//void Quaternion::print(const std::string& name, const Quaternion& q)
-//{
-//    float eps = 1e-3;
-//
-//    std::cout << name << " = ";
-//    if (std::abs(q.m_a) >= eps)
-//    {
-//        if (q.m_a < 0)
-//            std::cout << " - " << std::abs(q.m_a);
-//        else
-//            std::cout << q.m_a;
-//    }
-//
-//    if (std::abs(q.m_b) >= eps)
-//    {
-//      if (q.m_b < 0)
-//          std::cout << " - " << std::abs(q.m_b) << 'i';
-//      else if (std::abs(q.m_a) >= eps)
-//          std::cout << " + " << q.m_b << 'i';
-//      else
-//          std::cout << q.m_b << 'i';
-//    }
-//
-//    if (std::abs(q.m_c) >= eps)
-//    {
-//      if (q.m_c < 0)
-//          std::cout << " - " << std::abs(q.m_c) << 'j';
-//      else
-//          std::cout << " + " << q.m_c << 'j';
-//    }
-//
-//    if (std::abs(q.m_d) >= eps)
-//    {
-//      if (q.m_d < 0)
-//          std::cout << " - " << std::abs(q.m_d) << 'k';
-//      else
-//          std::cout << " + " << q.m_d << 'k';
-//    }
-//    std::cout << '\n';
-//}
-
 
 Vector3 rotate(const Vector3& v, Vector3& axis, const float& angle)
 {
