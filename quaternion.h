@@ -139,7 +139,6 @@ Quaternion inverse(Quaternion& q)
 
 Quaternion rotate(const Vector3& v, const Vector3& axis, const float& theta)
 {
-//    auto axis_components = axis.getComponents();
     float axis_b, axis_c, axis_d;
     std::tie(axis_b, axis_c, axis_d) = axis.getComponents();
     Quaternion q(std::cos(theta * M_PI / 180 / 2), std::sin(theta * M_PI / 180 / 2) * axis_b,\
